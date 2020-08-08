@@ -39,7 +39,6 @@ DISTFILES += \
     android/GooglePlayScreenShot1.jpg \
     android/GooglePlayScreenShot2.jpg \
     android/Google_Play_Android_Developer-4432a3c4f5d1.json.enc \
-    android/android_release.keystore \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.jar \
     android/gradle/wrapper/gradle-wrapper.properties \

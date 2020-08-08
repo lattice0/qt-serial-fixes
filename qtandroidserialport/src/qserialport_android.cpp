@@ -133,6 +133,7 @@ QSerialPortPrivate::QSerialPortPrivate(QSerialPort *q)
     , internalWriteTimeoutMsec(0)
     , isReadStopped(true)
 {
+    setNativeMethods();
 }
 
 void QSerialPortPrivate::setNativeMethods(void)
@@ -144,9 +145,9 @@ void QSerialPortPrivate::setNativeMethods(void)
         {"nativeDeviceHasDisconnected", "(J)V",                     reinterpret_cast<void *>(jniDeviceHasDisconnected)},
         {"nativeDeviceNewData",         "(J[B)V",                   reinterpret_cast<void *>(jniDeviceNewData)},
         {"nativeDeviceException",       "(JLjava/lang/String;)V",   reinterpret_cast<void *>(jniDeviceException)},
-        {"qgcLogDebug",                 "(Ljava/lang/String;)V",    reinterpret_cast<void *>(jniLogDebug)},
-        {"qgcLogWarning",               "(Ljava/lang/String;)V",    reinterpret_cast<void *>(jniLogWarning)}
     };
+    //{"qgcLogDebug",                 "(Ljava/lang/String;)V",    reinterpret_cast<void *>(jniLogDebug)},
+    //{"qgcLogWarning",               "(Ljava/lang/String;)V",    reinterpret_cast<void *>(jniLogWarning)}
 
     QAndroidJniEnvironment jniEnv;
     if (jniEnv->ExceptionCheck()) {
