@@ -158,6 +158,7 @@ void MainWindow::writeData(const QByteArray &data)
 //! [7]
 void MainWindow::readData()
 {
+    qDebug() << "ReadData!!!!!";
     const QByteArray data = m_serial->readAll();
     m_console->putData(data);
 }

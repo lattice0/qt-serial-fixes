@@ -166,7 +166,7 @@ public class QGCActivity extends QtActivity
                 }
 
                 try {
-                    nativeUpdateAvailableJoysticks();
+                    //nativeUpdateAvailableJoysticks();
                 } catch(Exception e) {
                     Log.e(TAG, "Exception nativeUpdateAvailableJoysticks()");
                 }
@@ -180,8 +180,8 @@ public class QGCActivity extends QtActivity
     private static native void nativeUpdateAvailableJoysticks();
 
     // Native C++ functions called to log output
-    public static native void qgcLogDebug(String message);
-    public static native void qgcLogWarning(String message);
+    public static void qgcLogDebug(String message){}
+    public static void qgcLogWarning(String message){}
 
     public native void nativeInit();
 
@@ -198,7 +198,7 @@ public class QGCActivity extends QtActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        nativeInit();
+        //nativeInit();
         PowerManager pm = (PowerManager)_instance.getSystemService(Context.POWER_SERVICE);
         _wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "QGroundControl");
         if(_wakeLock != null) {
@@ -693,11 +693,13 @@ public class QGCActivity extends QtActivity
 
     private void openAccessory(UsbAccessory usbAccessory)
     {
-        Log.i(TAG, "openAccessory: " + usbAccessory.getSerial());
+        Log.d(TAG, "openAccessory: " + usbAccessory.getSerial());
         try {
             synchronized(openAccessoryLock) {
                 if ((openUsbAccessory != null && !taiSync.isRunning()) || openUsbAccessory == null) {
                     openUsbAccessory = usbAccessory;
+                    Log.d(TAG, "TAISYNC OPEN!");
+
                     taiSync.open(_usbManager.openAccessory(usbAccessory));
                 }
             }
@@ -724,6 +726,8 @@ public class QGCActivity extends QtActivity
 
     private void probeAccessories()
     {
+        Log.d(TAG, "probeAccessories");
+
         final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
         new Thread(new Runnable() {
             public void run() {
@@ -736,7 +740,10 @@ public class QGCActivity extends QtActivity
                                continue;
                            }
                            if (_usbManager.hasPermission(usbAccessory)) {
+                               Log.d(TAG, "gonna openAccessory");
                                openAccessory(usbAccessory);
+                           } else {
+                           Log.d(TAG, "no permission");
                            }
                        }
                     }

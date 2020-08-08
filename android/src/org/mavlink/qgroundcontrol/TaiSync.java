@@ -108,10 +108,12 @@ public class TaiSync
                             }
                         }
 
-                        bytesRead = mFileInputStream.read(mBytes);
+                        //bytesRead = mFileInputStream.read(mBytes);
+                        Log.d("QGC_TaiSync", "bytes read: " + bytesRead);
 
                         if (bytesRead > 0)
                         {
+                            Log.d("QGC_TaiSync", "bytes read: " + bytesRead);
                             if (mBytes[3] == PROTOCOL_VERSION)
                             {
                                 vMaj = mBytes[19];
@@ -171,6 +173,8 @@ public class TaiSync
 
                         int bytesRead = telemetryInStream.read(inbuf, 0, inbuf.length);
                         if (bytesRead > 0) {
+                            Log.d("QGC_TaiSync", "telemetryInStream bytes read: " + bytesRead);
+
                             sendTaiSyncMessage(PROTOCOL_DATA, TAISYNC_TELEMETRY_PORT, inbuf, bytesRead);
                         }
                     }
